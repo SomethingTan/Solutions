@@ -28,6 +28,6 @@ def chessboard(rows,cols):
         for j in range(0,len(cols)):
             col_value = cols[j]
             print(f"{row_value}{col_value} ", end="")
-        print("\n")
+        print()
 
 chessboard(rows, cols)
