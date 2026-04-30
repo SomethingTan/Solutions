@@ -36,11 +36,12 @@ Fortsæt derefter med den næste fil.
 """
 
 #  Write your function below this line.
-factorial_input = 5
+factorial_input = 56
 
 def factorial(factorial_input):
-    for i in factorial_input:
-        pass
-#unfinished
-
+    factorial_result = 1
+    for i in range(1,factorial_input+1):
+        factorial_result *= i
+    print(f"{factorial_input}! = {factorial_result}")
 # Here starts the main program. From the main program you can call your functions.
+factorial(factorial_input)
