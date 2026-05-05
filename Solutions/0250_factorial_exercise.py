@@ -43,5 +43,7 @@ def factorial(factorial_input):
     for i in range(1,factorial_input+1):
         factorial_result *= i
     print(f"{factorial_input}! = {factorial_result}")
+
+
 # Here starts the main program. From the main program you can call your functions.
 factorial(factorial_input)
