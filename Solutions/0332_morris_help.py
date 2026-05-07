@@ -29,6 +29,7 @@ Hvis du går i stå, så spørg google, de andre elever, en AI eller læreren.
 Når dit program er færdigt, skal du skubbe det til dit github-repository.
 Fortsæt derefter med den næste fil."""
 
+# @formatter:off
 
 def sleep():
     morris["sleepiness"]-=10  # update sleepiness
@@ -36,30 +37,51 @@ def sleep():
     morris["hunger"]+=1
     morris["whisky"]+=0
     morris["gold"]+=0
-    if morris["sleepiness"]>100 or morris["thrist"]>100 or morris["hunger"]>100:
+    if morris["sleepiness"]>100 or morris["thirst"]>100 or morris["hunger"]>100:
         dead()
 
 def mine():
-    morris["sleepiness"]+=5  # update sleepiness
+    morris["sleepiness"]+=5
     morris["thirst"]+=5
     morris["hunger"]+=5
     morris["whisky"]+=0
     morris["gold"]+=5
-    if morris["sleepiness"]>100 or morris["thrist"]>100 or morris["hunger"]>100:
+    if morris["sleepiness"]>100 or morris["thirst"]>100 or morris["hunger"]>100:
         dead()
 
 def eat():
-    morris["sleepiness"]+=5  # update sleepiness
+    morris["sleepiness"]+=5
     morris["thirst"]-=5
     morris["hunger"]-=20
     morris["whisky"]+=0
     morris["gold"]-=2
-    if morris["sleepiness"]>100 or morris["thrist"]>100 or morris["hunger"]>100:
+    if morris["sleepiness"]>100 or morris["thirst"]>100 or morris["hunger"]>100:
         dead()
 
+def buyWhisky():
+    if morris["whisky"]>=10:
+        print("Morris cannot carry any more whisky.")
+    else:
+        morris["sleepiness"]+=5
+        morris["thirst"]+=1
+        morris["hunger"]+=1
+        morris["whisky"]+=1
+        morris["gold"]-=1
+    if morris["sleepiness"]>100 or morris["thirst"]>100 or morris["hunger"]>100:
+        dead()
 
+def drink():
+    morris["sleepiness"]+=5
+    morris["thirst"]-=15
+    morris["hunger"]+=5
+    morris["whisky"]-=1
+    morris["gold"]+=0
+    if morris["sleepiness"]>100 or morris["thirst"]>100 or morris["hunger"]>100:
+        dead()
 
 def dead():
+    morris["turns"]+= 1000
+    print("Morris died.")
     return morris["sleepiness"] > 100 or morris["thirst"] > 100 or morris["hunger"] > 100
 
 
@@ -67,5 +89,17 @@ morris = {"turn": 0, "sleepiness": 0, "thirst": 0, "hunger": 0, "whisky": 0, "go
 
 while not dead() and morris["turn"] < 1000:
     morris["turn"] += 1
-    sleep()
+    if morris["sleepiness"]<=40 and morris["thirst"]<=80 and morris["hunger"]<=70:
+        mine()
+    elif morris["sleepiness"]>40:
+        for i in range(4):
+            sleep()
+    elif morris["thirst"]>80:
+        if morris["whisky"]>0:
+            drink()
+        else:
+            buyWhisky()
+            drink()
+    elif morris["hunger"]>70:
+        eat()
     print(morris)
