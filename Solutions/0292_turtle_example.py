@@ -113,10 +113,10 @@ tom.shape("turtle")  # make Tom look like a turtle
 # many_squares(3,70,30)
 # many_circles(50,-200,5)
 # draw_square_at(-30,-200)
-# draw_grid(50,100,3)
+# draw_grid(3,7,40)
 # draw_house(50)
 # spiral_square(15)
 # star_polygon(11, 200)
-cool_pattern(30)
+# cool_pattern(30)
 
 turtle.done()  # keep the turtle window open after the program is done
