@@ -58,7 +58,8 @@ class Character:
         print(f"{self.name} took {hit_amount}DMG, HP is now {self._current_health}/{self.max_health}!")
 
     def heal_receive(self,heal_amount):
-
+        self._current_health += heal_amount
+        print(f"{self.name} healed for {heal_amount}HP, HP is now {self._current_health}/{self.max_health}!")
 
 class Healer(Character):
     def __init__(self,name,max_health,_current_health,attack_power,heal_power):
