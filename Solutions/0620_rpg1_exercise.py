@@ -51,15 +51,16 @@ class Character:
             return "Target must be of class Character."
         else:
             print(f"{self.name} hits {target.name}!")
-            target.hit_receive(self.attack_power)
+            target.hit_receive("Hit",self.attack_power)
 
-    def hit_receive(self,hit_amount):
-        self._current_health -= hit_amount
-        print(f"{self.name} took {hit_amount}DMG, HP is now {self._current_health}/{self.max_health}!")
-
-    def heal_receive(self,heal_amount):
-        self._current_health += heal_amount
-        print(f"{self.name} healed for {heal_amount}HP, HP is now {self._current_health}/{self.max_health}!")
+    def hit_receive(self,type,hit_amount):
+        match type:
+            case "Hit":
+                self._current_health -= hit_amount
+                print(f"{self.name} took {hit_amount}DMG, HP is now {self._current_health}/{self.max_health}!")
+            case "Heal":
+                self._current_health += hit_amount
+                print(f"{self.name} healed for {hit_amount}HP, HP is now {self._current_health}/{self.max_health}!")
 
 class Healer(Character):
     def __init__(self,name,max_health,_current_health,attack_power,heal_power):
@@ -72,4 +73,4 @@ class Healer(Character):
             return "Target must be of class Character"
         else:
             print(f"{self.name} heals {target.name}!")
-            target.heal_receive(self.heal_power)
+            target.hit_receive("Heal",self.heal_power)
