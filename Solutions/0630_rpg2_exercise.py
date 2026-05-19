@@ -58,25 +58,28 @@ class Character:
                 if self.state == "Blocking" or "Charging_Special":
                     hit_amount *= 0.5
                 self._current_health -= hit_amount
-                self.state = "Damaged"
-                print(f"{self.name} took {hit_amount}DMG, HP is now {self._current_health}/{self.max_health}!")
+                print(f"{self.name} took {hit_amount*0.5 if self.state == "Blocking" or "Charging_Special" else hit_amount}DMG, HP is now {self._current_health}/{self.max_health}!")
             case "Dagger_Storm":
                 if self.state == "Blocking" or "Charging_Special":
                     hit_amount *= 0.5
                 self._current_health -= hit_amount
-                print(f"{self.name} was hit by Dagger Storm! {round(hit_amount/5)}/7 daggers hit, dealing {hit_amount}DMG! HP is now {self._current_health}/{self.max_health}.")
+                print(f"{self.name} was hit by Dagger Storm! {round(hit_amount/5)}/7 daggers hit, dealing {hit_amount*0.5 if self.state == "Blocking" or "Charging_Special" else hit_amount}DMG! HP is now {self._current_health}/{self.max_health}.")
             case "Meteor":
                 if hit_amount == 0:
                     print(f"Meteor missed, dealing 0DMG! HP is still {self._current_health}/{self.max_health}.")
                 else:
                     if self.state == "Blocking" or "Charging_Special":
-                        hit_amount *= 0.7
+                        hit_amount *= 0.5
                     self._current_health -= hit_amount
-                    print(f"{self.name} was hit by Meteor, dealing 60DMG! HP is now {self._current_health}/{self.max_health}.")
+                    print(f"{self.name} was hit by Meteor, dealing {hit_amount*0.5 if self.state == "Blocking" or "Charging_Special" else hit_amount}DMG! HP is now {self._current_health}/{self.max_health}.")
+        if self.state == "Blocking":
+            print(f"{self.name} blocked the attack!")
+        self.state = "Damaged"
 
     def block(self):
         self.state = "Blocking"
         self.impatience *= 1.5
+        print(f"{self.name} blocks!")
 
 class Hunter(Character):
     def __init__(self,name,max_health,_current_health,impatience,state,attack_power):
@@ -91,9 +94,11 @@ class Hunter(Character):
             if self.special_attack_charged == False:
                 self.state = "Charging_Special"
                 self.special_attack_charged = True
+                print(f"{self.name} charges an attack...")
             else:
-                target.hit_receive("Dagger_Storm",random.randint(15,35))
+                target.hit_receive("Dagger_Storm",random.randint(10,35))
                 self.special_attack_charged = False
+                self.state = "Idle"
 
 class Magician(Character):
     def __init__(self,name,max_health,_current_health,impatience,state,attack_power):
@@ -108,19 +113,26 @@ class Magician(Character):
             if not self.special_attack_charged:
                 self.state = "Charging_Special"
                 self.special_attack_charged = True
+                print(f"{self.name} charges an attack...")
             else:
-                target.hit_receive("Meteor",60 if random.random()*100 > 60 else 0)
+                target.hit_receive("Meteor",65 if random.random()*100 > 50 else 0)
                 self.special_attack_charged = False
+                self.state = "Idle"
 
 hunter = Hunter("Hunter",115,115,1,"Idle",10,)
 magician = Magician("Magician",100,100,1,"Idle",8)
 
+print("---------- ROUND START ----------")
 hunter_wins = 0
 magician_wins = 0
 for i in range(100):
     while hunter._current_health > 0 and magician._current_health > 0:
         print("Hunter's turn.")
         choice = random.randint(1,3)
+        if choice == 2:
+            choice += random.randint(-1,1)
+        if choice == 3:
+            choice -= 1 if random.random()*hunter.impatience>0.5 else 0
         if hunter.special_attack_charged == True:
             hunter.special_attack(magician)
         else:
@@ -131,10 +143,16 @@ for i in range(100):
                     hunter.special_attack(magician)
                 case 3:
                     hunter.block()
+        if magician._current_health <= 0:
+            break
         print("Magician's turn.")
         choice = random.randint(1, 3)
+        if choice == 2:
+            choice += random.randint(-1,1)
+        if choice == 3:
+            choice -= 1 if random.random()*magician.impatience>0.5 else 0
         if magician.special_attack_charged == True:
-            magician.special_attack(magician)
+            magician.special_attack(hunter)
         else:
             match choice:
                 case 1:
@@ -143,7 +161,7 @@ for i in range(100):
                     magician.special_attack(hunter)
                 case 3:
                     magician.block()
-    if hunter._current_health <= 0:
+    if magician._current_health <= 0:
         hunter_wins += 1
         print("Hunter wins!")
     else:
