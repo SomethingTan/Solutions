@@ -40,13 +40,19 @@ Når dit program er færdigt, skal du skubbe det til dit github-repository.
 
 
 def pyramid(rows):
+    prev_line = [1, 1]
+    next_line = []
     for i in range(rows):
-        prev_line = [1,1]
-        next_line = []
+        next_line = prev_line.copy()
+        offset = 0
+        for j in range(1, len(prev_line)):
+            number = int(prev_line[j-1]) + int(prev_line[j])
+            if number - 1 == i:
+                next_line.insert(j+offset,number)
+                offset += 1
         print(*prev_line)
-        for j in enumerate(prev_line):
-            row_number = prev_line[j]
+        prev_line = next_line
 
+# ---------------------------------------------------------------------------
 
-
-pyramid(4)
+pyramid(12)
