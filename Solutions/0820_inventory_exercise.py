@@ -33,16 +33,19 @@ Når dit program er færdigt, skal du skubbe det til dit github-repository.
 def inventory(rows):
     numbers_memory = {}
     numbers_current = {}
-    iteration = 0
     for i in range(rows):
+        iteration = 0
         while True:
-            print(iteration)
-            if iteration >= 100:
+            numbers_current[iteration] = sum(1 for _value in numbers_current.values() if _value == iteration) + int(numbers_memory[iteration] if iteration in numbers_memory else 0)
+            if numbers_current[iteration] == 0:
                 break
             iteration += 1
-            #numbers_current[j] =
-    print(*numbers_current.values())
+        for j in range(len(numbers_current)):
+            numbers_memory[j] = sum(1 for _value in numbers_current.values() if _value == j) + int(numbers_memory[j] if j in numbers_memory else 0)
+        print(*numbers_current.values())
+        print(numbers_memory)
+        print()
+        numbers_current = {}
 
 
-
-inventory(1)
+inventory(20)
