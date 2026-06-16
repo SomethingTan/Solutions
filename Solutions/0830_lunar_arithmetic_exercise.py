@@ -33,23 +33,28 @@ Når dit program er færdigt, skal du skubbe det til dit github-repository.
 
 
 class Lunar_int(int):
-    def __add__(self, other_int):
-        padded_min = str(min(self, other_int)).zfill(len(str(max(self, other_int))))
-        for i in range(len(str(padded_min))):
-            if str(max(self, other_int))[i] > str(padded_min)[i]:
-                print(str(max(self, other_int))[i], end="")
+    def __add__(self, other):
+        padded_min = str(min(self, other)).zfill(len(str(max(self, other))))
+        for i in range(len(padded_min)):
+            if int(str(max(self, other))[i]) > int(padded_min[i]):
+                print(str(max(self, other))[i], end="")
             else:
                 print(str(padded_min)[i], end="")
         return "\n"
 
-    def __mul__(self, other_int):
-        padded_min = str(min(self, other_int)).zfill(len(str(max(self, other_int))))
-        for i in reversed(str(max(self, other_int))):
-            for j in reversed(str(padded_min)):
-                if j < i:
-                    0
+    def __mul__(self, other):
+        print(f"{self} * {other}\n---")
+        other_reversed = "".join(reversed(str(other)))
+        i_iteration = 0
+        for i in str(self):
+            for j in range(len(other_reversed)):
+                if int(i) < int(other_reversed[j]):
+                    # print(f"----- {i}, {other_reversed[j]}")
+                    print(i, end="")
                 else:
-                    0
-        return "\n"
+                    # print(f"----- {i}, {other_reversed[j]}")
+                    print(other_reversed[j], end="")
+            i_iteration += 1
+            print()
 
-print(Lunar_int(1250722) + Lunar_int(-97615), Lunar_int(83) * Lunar_int(190))
+print(Lunar_int(3276) * Lunar_int(7621))
