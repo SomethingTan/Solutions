@@ -37,24 +37,32 @@ class Lunar_int(int):
         padded_min = str(min(self, other)).zfill(len(str(max(self, other))))
         for i in range(len(padded_min)):
             if int(str(max(self, other))[i]) > int(padded_min[i]):
-                print(str(max(self, other))[i], end="")
+                return int(str(max(self, other))[i])
             else:
-                print(str(padded_min)[i], end="")
-        return "\n"
+                return int(str(padded_min)[i])
 
     def __mul__(self, other):
         print(f"{self} * {other}\n---")
-        other_reversed = "".join(reversed(str(other)))
+        digits = []
+        self_reversed = "".join(reversed(str(self)))
         i_iteration = 0
-        for i in str(self):
-            for j in range(len(other_reversed)):
-                if int(i) < int(other_reversed[j]):
-                    # print(f"----- {i}, {other_reversed[j]}")
-                    print(i, end="")
+        print(digits)
+        for i in self_reversed:
+            for j in range(len(str(other))):
+                if int(i) < int(str(other)[j]):
+                    if len(digits) > i:
+                        digits[i] = Lunar_int(digits[i]) + Lunar_int(int(i))
+                    else:
+                        digits.insert(i, int(i))
                 else:
-                    # print(f"----- {i}, {other_reversed[j]}")
-                    print(other_reversed[j], end="")
+                    if len(digits) > i:
+                        digits[i] = Lunar_int(digits[i]) + Lunar_int(int(str(other)[j]))
+                    else:
+                        digits.insert(i, int(str(other)[j]))
+            if True:
+                0
             i_iteration += 1
-            print()
+            print(i_iteration)
+            print(digits)
 
 print(Lunar_int(3276) * Lunar_int(7621))
