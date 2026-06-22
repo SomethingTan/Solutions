@@ -45,27 +45,20 @@ class Lunar_int(int):
         print(f"{self} * {other}\n---")
         digits = []
         self_reversed = "".join(reversed(str(self)))
-        #print(digits)
         for i in self_reversed:
             for j in range(len(str(other))):
                 if int(i) < int(str(other)[j]):
                     if j < len(digits):
                         digits[j] = Lunar_int(int(i)) + digits[j]
-                        #print("> ", digits)
                     else:
                         digits.append(int(i))
-                        #print("> ", digits)
                 else:
                     if j < len(digits):
                         digits[j] = Lunar_int(int(str(other)[j])) + digits[j]
-                        #print("> ", digits)
                     else:
                         digits.append(int(str(other)[j]))
-                        # print("> ", digits)
-            #print(digits)
             digits.insert(0, 0)
-            #print("/", digits)
         digits.pop(0)
         return (*digits,)
 
-print(Lunar_int(7621) * Lunar_int(3276))
+print(Lunar_int(243563) * Lunar_int(481874324))
