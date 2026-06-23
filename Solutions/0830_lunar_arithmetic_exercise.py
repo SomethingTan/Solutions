@@ -42,7 +42,6 @@ class Lunar_int(int):
                 return int(str(padded_min)[i])
 
     def __mul__(self, other):
-        print(f"{self} * {other}\n---")
         digits = []
         self_reversed = "".join(reversed(str(self)))
         for i in self_reversed:
@@ -59,6 +58,34 @@ class Lunar_int(int):
                         digits.append(int(str(other)[j]))
             digits.insert(0, 0)
         digits.pop(0)
-        return (*digits,)
+        digits_str = ""
+        for n in digits:
+            digits_str += str(n)
+        return int(digits_str)
 
-print(Lunar_int(243563) * Lunar_int(481874324))
+def calc_lunar_primes(n):
+    prime_amount = 0
+    current_number = 19
+    while prime_amount < n:
+        nine_check = False
+        prime = False
+        for _i in str(current_number):
+            if int(_i) == 9:
+                nine_check = True
+                break
+        if nine_check:
+            for _i in range(10, current_number):
+                if Lunar_int(current_number) * Lunar_int(_i) == current_number:
+                    print(f"not prime! {Lunar_int(current_number) * Lunar_int(_i)}")
+                    break
+                prime = True
+                print(f"prime! {Lunar_int(current_number) * Lunar_int(_i)}")
+            if prime:
+                print(current_number)
+                prime_amount += 1
+                print("prime!")
+        current_number += 1
+
+
+
+calc_lunar_primes(20)
