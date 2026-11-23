@@ -28,5 +28,78 @@ Funktionalitet:
 Når dit program er færdigt, skal du skubbe det til dit github-repository.
 """
 
+import tkinter as tk
+from tkinter import ttk
 
 
+padx = 6
+pady = 8
+rowheight = 20
+
+main_window = tk.Tk()
+main_window.title("my first GUI")
+main_window.geometry("500x500")
+
+labelFrame1 = tk.LabelFrame(main_window, text="Container")
+labelFrame1.grid(row="0", column="0", padx=padx, pady=pady)
+
+treeFrame1 = tk.Frame(labelFrame1)
+treeFrame1.grid(row="0", column="0", padx=padx, pady=pady)
+
+labels = tk.Frame(labelFrame1)
+labels.grid(row=1, column=0, padx=padx, pady=pady, sticky=tk.N)
+buttons = tk.Frame(labelFrame1)
+buttons.grid(row=2, column=0, padx=padx, pady=pady, sticky=tk.N)
+
+
+treeSB1 = tk.Scrollbar(treeFrame1)
+treeSB1.grid(row="0", column="0", padx=padx, pady=pady)
+tree1 = ttk.Treeview(treeFrame1, yscrollcommand="treeSB1", selectmode="browse")
+tree1.grid(row="0", column="0", padx=padx, pady=pady)
+
+tree1['columns'] = ["col1", "col2", "col3"]
+tree1.column("#0", width=0, stretch=tk.NO)
+tree1.column("col1", anchor=tk.W, width="40")
+tree1.column("col2", anchor=tk.W, width="100")
+tree1.column("col3", anchor=tk.W, width="200")
+
+tree1.heading("#0", text="", anchor=tk.CENTER)
+tree1.heading("col1", text="Id", anchor=tk.CENTER)
+tree1.heading("col2", text="Weight", anchor=tk.CENTER)
+tree1.heading("col3", text="Destination", anchor=tk.CENTER)
+
+
+labelId = tk.Label(labels, text="Id")
+labelId.grid(row=0, column=0, padx=padx, pady=pady)
+entryId = tk.Entry(labels, width=4)
+entryId.grid(row=1, column=0, padx=padx, pady=pady)
+
+labelWeight = tk.Label(labels, text="Weight")
+labelWeight.grid(row=0, column=1, padx=padx, pady=pady)
+entryWeight = tk.Entry(labels, width=8)
+entryWeight.grid(row=1, column=1, padx=padx, pady=pady)
+
+labelDestination = tk.Label(labels, text="Destination")
+labelDestination.grid(row=0, column=2, padx=padx, pady=pady)
+entryDestination = tk.Entry(labels, width=15)
+entryDestination.grid(row=1, column=2, padx=padx, pady=pady)
+
+labelWeather = tk.Label(labels, text="Weather")
+labelWeather.grid(row=0, column=3, padx=padx, pady=pady)
+entryWeather = tk.Entry(labels, width=12)
+entryWeather.grid(row=1, column=3, padx=padx, pady=pady)
+
+buttonCreate = tk.Button(buttons, text="Create")
+buttonCreate.grid(row=0, column=0, padx=padx, pady=pady)
+
+buttonUpdate = tk.Button(buttons, text="Update")
+buttonUpdate.grid(row=0, column=1, padx=padx, pady=pady)
+
+buttonDelete = tk.Button(buttons, text="Delete")
+buttonDelete.grid(row=0, column=2, padx=padx, pady=pady)
+
+buttonClear = tk.Button(buttons, text="Clear Entry Boxes")
+buttonClear.grid(row=0, column=3, padx=padx, pady=pady)
+
+if __name__ == "__main__":
+    main_window.mainloop()
