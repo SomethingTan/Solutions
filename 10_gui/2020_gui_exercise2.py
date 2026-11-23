@@ -26,3 +26,55 @@ Funktionalitet:
 Når dit program er færdigt, skal du skubbe det til dit github-repository.
 """
 
+import tkinter as tk
+
+main_window = tk.Tk()
+main_window.title("my first GUI")
+main_window.geometry("500x500")
+
+padx = 15
+pady = 5
+
+labelFrame = tk.LabelFrame(main_window, text="Container")
+labelFrame.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)
+
+labels = tk.Frame(labelFrame)
+labels.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)
+buttons = tk.Frame(labelFrame)
+buttons.grid(row=1, column=0, padx=padx, pady=pady, sticky=tk.N)
+
+labelId = tk.Label(labels, text="Id")
+labelId.grid(row=0, column=0, padx=padx, pady=pady)
+entryId = tk.Entry(labels, width=4)
+entryId.grid(row=1, column=0, padx=padx, pady=pady)
+
+labelWeight = tk.Label(labels, text="Weight")
+labelWeight.grid(row=0, column=1, padx=padx, pady=pady)
+entryWeight = tk.Entry(labels, width=8)
+entryWeight.grid(row=1, column=1, padx=padx, pady=pady)
+
+labelDestination = tk.Label(labels, text="Destination")
+labelDestination.grid(row=0, column=2, padx=padx, pady=pady)
+entryDestination = tk.Entry(labels, width=15)
+entryDestination.grid(row=1, column=2, padx=padx, pady=pady)
+
+labelWeather = tk.Label(labels, text="Weather")
+labelWeather.grid(row=0, column=3, padx=padx, pady=pady)
+entryWeather = tk.Entry(labels, width=12)
+entryWeather.grid(row=1, column=3, padx=padx, pady=pady)
+
+buttonCreate = tk.Button(buttons, text="Create")
+buttonCreate.grid(row=0, column=0, padx=padx, pady=pady)
+
+buttonUpdate = tk.Button(buttons, text="Update")
+buttonUpdate.grid(row=0, column=1, padx=padx, pady=pady)
+
+buttonDelete = tk.Button(buttons, text="Delete")
+buttonDelete.grid(row=0, column=2, padx=padx, pady=pady)
+
+buttonClear = tk.Button(buttons, text="Clear Entry Boxes")
+buttonClear.grid(row=0, column=3, padx=padx, pady=pady)
+
+
+if __name__ == "__main__":
+    main_window.mainloop()

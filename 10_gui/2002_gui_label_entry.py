@@ -28,7 +28,7 @@ button_5.grid(row=117, column=117)
 # You can find all possible options of tk.Label() in the following documentations:
 # https://tkdocs.com/shipman/label.html
 # https://www.tutorialspoint.com/python/tk_label.htm
-label_1 = tk.Label(main_window, text="this is a label")
+label_1 = tk.Label(main_window, text="this is a label", cursor="heart")
 label_1.grid(row=2, column=3)
 
 # Create an entry

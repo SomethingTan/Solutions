@@ -12,8 +12,8 @@ import tkinter as tk
 # The following two variables hold the amount of padding in horizontal and vertical direction.
 # Using variables instead of typing in the actual numbers for every
 # single GUI object makes the code more compact and easier to change.
-padx = 8  # Horizontal distance to neighboring objects
-pady = 4  # Vertical distance to neighboring objects
+padx = 80  # Horizontal distance to neighboring objects
+pady = 40  # Vertical distance to neighboring objects
 
 main_window = tk.Tk()
 main_window.title('my first GUI')
