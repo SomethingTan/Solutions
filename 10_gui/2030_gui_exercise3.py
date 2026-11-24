@@ -32,13 +32,30 @@ import tkinter as tk
 from tkinter import ttk
 
 
-padx = 6
-pady = 8
+
+def clearEntryBoxes():
+    entryId.delete(0,tk.END)
+    entryWeight.delete(0, tk.END)
+    entryDestination.delete(0, tk.END)
+    entryWeather.delete(0, tk.END)
+
+
+padx = 5
+pady = 5
 rowheight = 20
+
+treeview_background = "#eeeeee"  # color of background in treeview
+treeview_foreground = "black"  # color of foreground in treeview
+treeview_selected = "#773333"
 
 main_window = tk.Tk()
 main_window.title("my first GUI")
 main_window.geometry("500x500")
+
+style1 = ttk.Style()
+style1.theme_use('default')
+style1.configure("tree1", background=treeview_background, foreground=treeview_foreground, rowheight=rowheight, fieldbackground=treeview_background)
+style1.map('tree1', background=[('selected', treeview_selected)])
 
 labelFrame1 = tk.LabelFrame(main_window, text="Container")
 labelFrame1.grid(row="0", column="0", padx=padx, pady=pady)
@@ -98,7 +115,7 @@ buttonUpdate.grid(row=0, column=1, padx=padx, pady=pady)
 buttonDelete = tk.Button(buttons, text="Delete")
 buttonDelete.grid(row=0, column=2, padx=padx, pady=pady)
 
-buttonClear = tk.Button(buttons, text="Clear Entry Boxes")
+buttonClear = tk.Button(buttons, text="Clear Entry Boxes", command=clearEntryBoxes)
 buttonClear.grid(row=0, column=3, padx=padx, pady=pady)
 
 if __name__ == "__main__":
