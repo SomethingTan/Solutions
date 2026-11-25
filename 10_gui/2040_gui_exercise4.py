@@ -47,7 +47,6 @@ def editRecord(entry, tree):
     for index, entry in enumerate(entries):
         entry.delete(0, tk.END)
         if index + 1 < len(entries):
-            print(entry, index)
             entry.insert(0, values[index])
 
 
@@ -61,12 +60,14 @@ rowheight = 24
 treeview_background = "#eeeeee"
 treeview_foreground = "black"
 treeview_selected = "#773333"
-oddrow = "#ddeedd"
-evenrow = "#cce0cc"
+oddrow = "#dbdbdb"
+evenrow = "#bdbdbd"
 
 tableDataList = []
-tableDataList.append(("1", "hello", 7000))
-tableDataList.append(("2", "data!", 3000))
+tableDataList.append(("1", 1000, "oslo"))
+tableDataList.append(("2", 2000, "chicago"))
+tableDataList.append(("2", 3000, "milano"))
+tableDataList.append(("2", 4000, "amsterdam"))
 
 style1 = ttk.Style()
 style1.theme_use('default')
@@ -100,6 +101,9 @@ tree1.heading("#0", text="", anchor=tk.CENTER)
 tree1.heading("col1", text="Id", anchor=tk.CENTER)
 tree1.heading("col2", text="Weight", anchor=tk.CENTER)
 tree1.heading("col3", text="Destination", anchor=tk.CENTER)
+
+tree1.tag_configure('oddrow', background=oddrow)
+tree1.tag_configure('evenrow', background=evenrow)
 
 tree1.bind("<ButtonRelease-1>", lambda event: editRecord(event, tree1))
 
